@@ -1,18 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    setCount(count + 1);
+    console.log(count);
+  };
 
-  function handleClick() {
-    alert('Hello World!');
-  }
+  const decrement = () => {
+    setCount(count - 1);
+    console.log(count);
+  };
+
+  const reset = () => {
+    setCount(0);
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <button onClick={handleClick}>Click</button>
-      </header>
+    <div>
+      <button onClick={increment}>いいね</button>
+      <button onClick={decrement}>よくないね</button>
+      <button onClick={reset}>reset</button>
+      <p>Count: {count}</p>
     </div>
   );
 }
