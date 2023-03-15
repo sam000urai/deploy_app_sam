@@ -5,6 +5,8 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [text, setText] = useState('');
   const [displayText, setDisplayText] = useState('');
+  const [error, setError] = useState('');
+
 
   const increment = () => {
     setCount(count + 1);
@@ -26,9 +28,13 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Input text: ${text}`);
-    setDisplayText(text);
-    setText('');
+    if (text.trim() === '') {
+      setError('入力してください');
+    } else {
+      setDisplayText(text);
+      setText('');
+      setError('');
+    }
   };
 
   return (
@@ -41,8 +47,8 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <input type="text" value={text} onChange={handleInputChange} />
         <button type="submit">hello</button>
+        {error && <p>{error}</p>}
       </form>
-
       <p>Text: {displayText}</p>
 
     </div>
