@@ -6,7 +6,11 @@ const App = () => {
   const [text, setText] = useState('');
   const [displayText, setDisplayText] = useState('');
   const [error, setError] = useState('');
+  const [result, setResult] = useState('');
+  const [playerChoice, setPlayerChoice] = useState('');
+  const [computerChoice, setComputerChoice] = useState('');
 
+  const choices = ['グー', 'チョキ', 'パー'];
 
   const increment = () => {
     setCount(count + 1);
@@ -39,6 +43,24 @@ const App = () => {
     }
   };
 
+  const playRockPaperScissors = (selectedChoice) => {
+    const compChoice = choices[Math.floor(Math.random() * choices.length)];
+    setPlayerChoice(selectedChoice);
+    setComputerChoice(compChoice);
+
+    if (selectedChoice === compChoice) {
+      setResult('引き分け！');
+    } else if (
+      (selectedChoice === 'グー' && compChoice === 'チョキ') ||
+      (selectedChoice === 'チョキ' && compChoice === 'パー') ||
+      (selectedChoice === 'パー' && compChoice === 'グー')
+    ) {
+      setResult('あなたの勝ち！');
+    } else {
+      setResult('あなたの負け...');
+    }
+  };
+
   return (
     <div>
       <button onClick={increment}>いいね</button>
@@ -52,6 +74,17 @@ const App = () => {
         {error && <p>{error}</p>}
       </form>
       <p>Text: {displayText}</p>
+
+
+      <h2>じゃんけんゲーム</h2>
+      {choices.map((choice) => (
+        <button key={choice} onClick={() => playRockPaperScissors(choice)}>
+          {choice}
+        </button>
+      ))}
+      <p>あなたの手：{playerChoice}</p>
+      <p>システムの選んだ手：{computerChoice}</p>
+      <p>勝敗：{result}</p>
 
     </div>
   );
