@@ -19,7 +19,9 @@ const App = () => {
   };
 
   const reset = () => {
-    setCount(0);
+    if (window.confirm('本当の本当にリセットしますか？')) {
+      setCount(0);
+    }
   };
 
   const handleInputChange = (event) => {
