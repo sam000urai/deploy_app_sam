@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -16,7 +18,7 @@ const App = () => {
     console.log('useEffect が呼び出されました。');
     axios.get('https://qiita.com/api/v2/items').then(res => {
       console.log(res, 'res check');
-      setArticles(res.data.map(article => article.title));
+      setArticles(res.data.map(article => ({ title: article.title, url: article.url })));
     })
   }, []);
 
@@ -97,11 +99,24 @@ const App = () => {
       <p>勝敗：{result}</p>
 
       <h2>Qiita 記事のタイトル一覧</h2>
-      <ul>
-        {articles.map((title, index) => (
-          <li key={index}>{title}</li>
-        ))}
-      </ul>
+      <Container>
+        <Row>
+          {articles.map((article, index) => (
+            <Col key={index} sm={12} md={6} lg={4} className="mb-4">
+              <Card>
+                <Card.Body>
+                  <Card.Title>{article.title}</Card.Title>
+                  <Card.Text>
+                    <a href={article.url} target="_blank" rel="noopener noreferrer">
+                      {article.url}
+                    </a>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
 
     </div>
   );
