@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import axios from 'axios';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -9,6 +10,15 @@ const App = () => {
   const [result, setResult] = useState('');
   const [playerChoice, setPlayerChoice] = useState('');
   const [computerChoice, setComputerChoice] = useState('');
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    console.log('useEffect が呼び出されました。');
+    axios.get('https://qiita.com/api/v2/items').then(res => {
+      console.log(res, 'res check');
+      setArticles(res.data.map(article => article.title));
+    })
+  }, []);
 
   const choices = ['グー', 'チョキ', 'パー'];
 
@@ -85,6 +95,13 @@ const App = () => {
       <p>あなたの手：{playerChoice}</p>
       <p>システムの選んだ手：{computerChoice}</p>
       <p>勝敗：{result}</p>
+
+      <h2>Qiita 記事のタイトル一覧</h2>
+      <ul>
+        {articles.map((title, index) => (
+          <li key={index}>{title}</li>
+        ))}
+      </ul>
 
     </div>
   );
