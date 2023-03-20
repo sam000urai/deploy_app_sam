@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap';
 
 const PageA = () => {
     const [count, setCount] = useState(0);
@@ -111,6 +113,10 @@ const PageA = () => {
             <h1>PageA</h1>
             <button onClick={goToPageB}>PageB へ移動</button>
 
+            <div>ComponentA</div>
+            <Button variant="primary">Loginページへ移動</Button>
+            <Link to="Login" >Loginページへ移動</Link>
+
             <h2>Qiita 記事のタイトル一覧</h2>
             <Container>
                 <Row>
@@ -130,6 +136,7 @@ const PageA = () => {
                     ))}
                 </Row>
             </Container>
+
 
         </div>
     );

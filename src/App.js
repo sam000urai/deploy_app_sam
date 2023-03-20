@@ -1,17 +1,19 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import PageA from './component/PageA';
-import PageB from './component/PageB';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.css';
+import CreateUser from './pages/CreateUser';
+import Login from './pages/Login';
+import Main from './pages/Main';
 
-const App = () => {
+function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PageA />} />
-        <Route path="/PageB/:message" element={<PageB />} />
+        <Route exact path="/" element={<Login />} />
+        <Route path="/createUser" element={<CreateUser />} />
+        <Route path="/main" element={<Main />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
-};
-
-export default App
+}
+export default App;
