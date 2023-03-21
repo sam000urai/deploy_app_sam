@@ -5,6 +5,8 @@ import CreateUser from './pages/CreateUser';
 import Login from './pages/Login';
 import Main from './pages/Main';
 
+console.log('API Key:', process.env.REACT_APP_API_KEY);
+
 function App() {
   return (
     <BrowserRouter>

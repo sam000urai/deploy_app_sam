@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -11,7 +11,6 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID,
 };
-
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -25,6 +24,19 @@ export const createUser = async (email, password) => {
         const user = userCredential.user;
         console.log(user);
         console.log("create user success!!");
+        return "success";
+    } catch (error) {
+        console.log(error.message);
+        return "failed";
+    }
+};
+
+export const signInUser = async (email, password) => {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log(user);
+        console.log("sign in user success!!");
         return "success";
     } catch (error) {
         console.log(error.message);
