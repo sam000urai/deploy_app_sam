@@ -1,5 +1,9 @@
-import { initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getApps, initializeApp } from 'firebase/app';
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -12,34 +16,44 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_APP_ID,
 };
 
-// Initialize Firebase
-initializeApp(firebaseConfig);
+const apps = getApps;
+if (!apps.length) {
+    initializeApp(firebaseConfig);
+}
 
 const auth = getAuth();
 export { auth, createUserWithEmailAndPassword };
 
 export const createUser = async (email, password) => {
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
         const user = userCredential.user;
         console.log(user);
-        console.log("create user success!!");
-        return "success";
+        console.log('create user success!!');
+        return 'success';
     } catch (error) {
         console.log(error.message);
-        return "failed";
+        return 'failed';
     }
 };
 
 export const signInUser = async (email, password) => {
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
         const user = userCredential.user;
         console.log(user);
-        console.log("sign in user success!!");
-        return "success";
+        console.log('sign in user success!!');
+        return 'success';
     } catch (error) {
         console.log(error.message);
-        return "failed";
+        return 'failed';
     }
 };
