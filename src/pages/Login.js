@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInUser } from '../plugins/firebase';
+import { signInUser, signInWithGoogle } from '../plugins/firebase';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -18,12 +18,22 @@ const Login = () => {
         }
     };
 
+    const handleGoogleSignIn = async () => {
+        const result = await signInWithGoogle();
+        if (result === "success") {
+            navigate('/main');
+        } else {
+            setError("Googleログインに失敗しました。");
+        }
+    };
+
     return (
         <div>
             <h1>Login</h1>
             <TextField id="email" label="email" value={email} onChange={e => setEmail(e.target.value)} /><br />
             <TextField id="password" label="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
             <Button variant="outlined" onClick={handleClick}>Login</Button><br />
+            <Button variant="outlined" onClick={handleGoogleSignIn}>Google Login</Button><br />
             {error && <p>{error}</p>}
             <Link to='/createUser'>アカウント作成</Link>
         </div>

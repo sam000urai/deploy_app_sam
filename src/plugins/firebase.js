@@ -3,7 +3,10 @@ import {
     createUserWithEmailAndPassword,
     getAuth,
     signInWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
 } from 'firebase/auth';
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,6 +25,8 @@ if (!apps.length) {
 }
 
 const auth = getAuth();
+const googleAuthProvider = new GoogleAuthProvider();
+
 export { auth, createUserWithEmailAndPassword };
 
 export const createUser = async (email, password) => {
@@ -51,6 +56,19 @@ export const signInUser = async (email, password) => {
         const user = userCredential.user;
         console.log(user);
         console.log('sign in user success!!');
+        return 'success';
+    } catch (error) {
+        console.log(error.message);
+        return 'failed';
+    }
+};
+
+export const signInWithGoogle = async () => {
+    try {
+        const result = await signInWithPopup(auth, googleAuthProvider); // Googleログイン用のポップアップを表示
+        const user = result.user;
+        console.log(user);
+        console.log('Google sign in success!!');
         return 'success';
     } catch (error) {
         console.log(error.message);
